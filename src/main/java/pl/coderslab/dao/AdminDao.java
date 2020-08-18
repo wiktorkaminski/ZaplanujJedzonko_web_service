@@ -41,7 +41,6 @@ public class AdminDao {
         }
     }
 
-
     public Admin read(Integer adminId) {
         Admin admin = new Admin();
         try (Connection connection = DbUtil.getConnection();

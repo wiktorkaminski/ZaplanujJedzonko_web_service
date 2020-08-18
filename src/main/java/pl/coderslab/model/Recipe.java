@@ -7,8 +7,8 @@ public class Recipe {
     private String name;
     private String ingredients;
     private String description;
-    private LocalDateTime created;
-    private LocalDateTime updated;
+    private String created;
+    private String updated;
     private int preparationTime;
     private String preparation;
     private int adminId;
@@ -36,7 +36,6 @@ public class Recipe {
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
-        this.created = created;
     }
 
     // -- getters and setters
@@ -73,19 +72,19 @@ public class Recipe {
         this.description = description;
     }
 
-    public LocalDateTime getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public LocalDateTime getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(LocalDateTime updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
