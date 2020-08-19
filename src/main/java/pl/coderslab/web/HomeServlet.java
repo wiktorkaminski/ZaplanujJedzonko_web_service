@@ -7,6 +7,11 @@ import pl.coderslab.model.Admin;
 import pl.coderslab.model.Book;
 import pl.coderslab.model.DayName;
 
+import pl.coderslab.dao.PlanDao;
+import pl.coderslab.model.Book;
+import pl.coderslab.model.Plan;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,18 +28,7 @@ import java.util.List;
 public class HomeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //AdminDao adminDao = new AdminDao();
-        /*Admin admin = new Admin();
-        admin.setFirstName("Mar");
-        admin.setLastName("KKK");
-        admin.setEnable(0);
-        admin.setSuperAdmin(0);
-        admin.setPassword("mnmn");
-        admin.setEmail("mmm@gmail.com");
-        adminDao.create(admin);*/
-        //List<Admin> adminList = adminDao.findAll();
-        //System.out.println(adminDao.read(1));
-         BookDao bookDao = new BookDao();
+        BookDao bookDao = new BookDao();
         List<Book> books = bookDao.findAll();
         System.out.println(books);
 
