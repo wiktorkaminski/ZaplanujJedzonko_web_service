@@ -1,5 +1,7 @@
 package pl.coderslab.dao;
 
+import pl.coderslab.exception.NotFoundException;
+import pl.coderslab.model.Book;
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
@@ -9,11 +11,11 @@ import java.util.List;
 
 public class RecipeDao {
     // SQL QUERIES
-    private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe (name, ingredients, description, created, preparation_time, preparation, admin_id) VALUES (?,?,?,?,?,?,?);";
+    private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe (name, ingredients, description, created, preparation_time, preparation, admin_id, created) VALUES (?,?,?,?,?,?,?,NOW());";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe where id = ?;";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe;";
     private static final String READ_RECIPE_QUERY = "SELECT * from recipe where id = ?;";
-    private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = ?, preparation_time = ?, preparation = ?, admin_id = ? WHERE id = ?;";
+    private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = ?, preparation_time = ?, updated = NOW(), preparation = ?, admin_id = ? WHERE id = ?;";
 
     /**
      * Get recipe by id
@@ -21,7 +23,7 @@ public class RecipeDao {
      * @param recipeId
      * @return
      */
-    public static Recipe read(Integer recipeId) {
+    public Recipe read(Integer recipeId) {
         Recipe recipe = new Recipe();
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(READ_RECIPE_QUERY)
@@ -29,6 +31,7 @@ public class RecipeDao {
             preparedStatement.setInt(1, recipeId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet != null) {
+                resultSet.next();
                 recipe.setId(resultSet.getInt("id"));
                 recipe.setName(resultSet.getString("name"));
                 recipe.setIngredients(resultSet.getString("ingredients"));
@@ -113,6 +116,48 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Update recipe
+     *     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ? WHERE id = ?;";
+     * @param recipe
+     */
+    public void update(Recipe recipe) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_RECIPE_QUERY)) {
+            statement.setInt(6, recipe.getId());
+            statement.setString(1, recipe.getName());
+            statement.setString(2, recipe.getIngredients());
+            statement.setString(3, recipe.getDescription());
+            statement.setInt(4, recipe.getPreparationTime());
+            statement.setString(5, recipe.getPreparation());
+
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Remove recipe by id
+     *
+     * @param recipeId
+     */
+    public void delete(Integer recipeId) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_QUERY)) {
+            statement.setInt(1, recipeId);
+            statement.executeUpdate();
+
+            boolean deleted = statement.execute();
+            if (!deleted) {
+                throw new NotFoundException("Product not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -32,10 +32,11 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String ingredients, String description, LocalDateTime created) {
+    public Recipe(String name, String ingredients, String description, int adminId) {
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
+        this.adminId = adminId;
     }
 
     // -- getters and setters
