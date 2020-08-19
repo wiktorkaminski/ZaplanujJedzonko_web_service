@@ -1,7 +1,9 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.BookDao;
+import pl.coderslab.dao.PlanDao;
 import pl.coderslab.model.Book;
+import pl.coderslab.model.Plan;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
