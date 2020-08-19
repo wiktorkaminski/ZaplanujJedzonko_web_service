@@ -77,4 +77,9 @@ public class Admin {
     public void setEnable(int enable) {
         this.enable = enable;
     }
+
+
+    public String toString(){
+        return firstName+ " "+ lastName + " " + email;
+    }
 }

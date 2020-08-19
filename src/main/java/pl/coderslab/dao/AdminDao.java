@@ -41,7 +41,7 @@ public class AdminDao {
             return admin;
         } catch (SQLException e) {
             e.printStackTrace();
-            return admin;
+            return null;
         }
     }
 
