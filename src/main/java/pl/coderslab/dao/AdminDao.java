@@ -77,16 +77,16 @@ public class AdminDao {
             statement.setString(2, admin.getLastName());
             statement.setString(3, admin.getEmail());
             statement.setString(4, admin.getPassword());
-            statement.setString(5, admin.getFirstName());
-            statement.setString(6, admin.getFirstName());
+            statement.setInt(5, admin.getSuperAdmin());
+            statement.setInt(6, admin.getEnable());
             while (resultSet.next()) {
                 if (resultSet.getInt("id") == admin.getId()) {
                     if (admin.getPassword().equals(resultSet.getString("password"))) {  //sprawdzam czy hasło zostało zmienione, jeżeli nie,
-                        statement.setString(3, admin.getPassword());                 // nie będzie zasolone
+                        statement.setString(4, admin.getPassword());                 // nie będzie zasolone
                         break;
                     }
                     else{
-                        statement.setString(3, hashPassword(admin.getPassword()));
+                        statement.setString(4, hashPassword(admin.getPassword()));
                         break;
                     }
                 }
