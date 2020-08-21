@@ -137,4 +137,8 @@ public class AdminDao {
         }
     }
 
+    public boolean check(Admin admin){
+        
+    }
+
 }
