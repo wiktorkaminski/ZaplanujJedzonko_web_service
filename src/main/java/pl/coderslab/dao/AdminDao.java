@@ -19,7 +19,6 @@ public class AdminDao {
     private static final String READ_ADMIN_QUERY = "SELECT * from admins where id = ?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE	admins SET first_name = ?, last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE	id = ?;";
 
-
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
@@ -137,8 +136,47 @@ public class AdminDao {
         }
     }
 
-    public boolean check(Admin admin){
-        
+    public boolean checkEmail(String email){
+        try (Connection connection = DbUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMINS_QUERY)){
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                if (email.equals(resultSet.getString("email"))){
+                    return true;
+                }
+            }
+            return false;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
+    public boolean checkPassword(String password){
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMINS_QUERY)){
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                if (BCrypt.checkpw(password, resultSet.getString("password"))){
+                    return true;
+                }
+            }
+            return false;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean checkEmailAndPassword(String email, String password){
+        if(checkEmail(email) && checkPassword(password)){
+            System.out.println("zalogowany");
+            return true;
+        }else {
+            System.out.println("nie ma takiego użytkownika");
+            return false;
+        }
+    }
 }
