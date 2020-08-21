@@ -16,53 +16,7 @@
 </head>
 
 <body>
-
-<%--header from header.jspf--%>
 <%@ include file="/WEB-INF/jspf/header.jsp" %>
-
-
-<section class="padding-large bg-light">
-    <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
-        <div class="carousel-inner container">
-            <div class="carousel-item active">
-                <div class="container w-75 d-flex">
-                    <div class="carousel-caption d-block">
-                        <h1>Lorem ipsum dolor sit amet</h1>
-                        <h3> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua.</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container w-75 d-flex">
-                    <div class="carousel-caption d-block">
-                        <h1>Torem ipsum dolor sit amet</h1>
-                        <h3> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua.</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container w-75 d-flex">
-                    <div class="carousel-caption d-block">
-                        <h1>Borem ipsum dolor sit amet</h1>
-                        <h3> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua.</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</section>
-
 <section class="section-more padding-small">
     <div class="container d-flex justify-content-between">
         <div class="mr-4">
@@ -74,6 +28,23 @@
             <button class="btn btn-color rounded-0 mt-4 pl-4 pr-4">
                 <a href="index.html">Lorem ipsum</a>
             </button>
+        </div>
+    </div>
+</section>
+
+<section class="padding-medium story bg-light" id="about">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-4 mr-4">
+                <div class="div-img">
+                </div>
+            </div>
+
+            <div class="col-7 ml-4">
+                <h1 class="pb-1">Zaplanuj jedzonko</h1>
+                <p>Nasza aplikacja umożliwia dodawanie przepisów itp
+                </p>
+            </div>
         </div>
     </div>
 </section>
@@ -188,7 +159,6 @@
     </div>
 </section>
 
-<%--footer from footer.jspf--%>
 <%@ include file="/WEB-INF/jspf/footer.jsp" %>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
