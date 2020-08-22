@@ -23,7 +23,7 @@ public class RecipeDao {
                     "updated = NOW(), " +
                     "preparation = ? " +
                     "WHERE id = ?;";
-    private static final String FIND_RECIPES_BY_ADMIN_ID_QUERY = "SELECT * FROM recipe WHERE admin_id = ?;";
+    private static final String COUNT_RECIPES_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfRecipes FROM recipe WHERE admin_id = ?;";
 
     /**
      * Get recipe by id
@@ -170,12 +170,12 @@ public class RecipeDao {
     public Integer countRecipesByAdminId(Integer adminId) {
         int recipesCounter = 0;
         try (Connection conn = DbUtil.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(FIND_RECIPES_BY_ADMIN_ID_QUERY)
+             PreparedStatement preparedStatement = conn.prepareStatement(COUNT_RECIPES_BY_ADMIN_ID_QUERY)
         ) {
             preparedStatement.setInt(1, adminId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                recipesCounter += 1;
+            if (resultSet.next()) {
+                recipesCounter = resultSet.getInt("numOfRecipes");
             }
         } catch (Exception e) {
             e.printStackTrace();
