@@ -34,7 +34,8 @@ public class Registration extends HttpServlet {
         AdminDao adminDao = new AdminDao();
         adminDao.create(newAdmin);
 
-        getServletContext().getRequestDispatcher("/login").forward(request, response);
+        //getServletContext().getRequestDispatcher("/login").forward(request, response);
+        response.sendRedirect("/login");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
