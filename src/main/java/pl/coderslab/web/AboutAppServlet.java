@@ -14,7 +14,6 @@ public class AboutAppServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //getServletContext().getRequestDispatcher("/home#about").forward(request, response);
         response.sendRedirect("/home#about");
     }
 }

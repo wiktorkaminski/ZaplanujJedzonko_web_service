@@ -14,7 +14,6 @@ public class ContactServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //getServletContext().getRequestDispatcher("/home#contact").forward(request, response);
         response.sendRedirect("/home#contact");
     }
 }
