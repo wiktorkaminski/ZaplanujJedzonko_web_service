@@ -20,7 +20,7 @@ public class Login extends HttpServlet {
             return;
         }else {
             //getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
-            response.sendRedirect("/home");
+            response.sendRedirect("/dashboard.jsp");
         }
     }
 
