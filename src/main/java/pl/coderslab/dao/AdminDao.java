@@ -136,46 +136,22 @@ public class AdminDao {
         }
     }
 
-    public boolean checkEmail(String email){
+    public boolean checkEmailAndPassword(String email, String password){
         try (Connection connection = DbUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMINS_QUERY)){
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                if (email.equals(resultSet.getString("email"))){
+                if (email.equals(resultSet.getString("email")) &&
+                        BCrypt.checkpw(password, resultSet.getString("password"))){
+                    System.out.println("zalogowany");
                     return true;
                 }
             }
-            return false;
-
-        }catch (SQLException e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean checkPassword(String password){
-        try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMINS_QUERY)){
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
-                if (BCrypt.checkpw(password, resultSet.getString("password"))){
-                    return true;
-                }
-            }
-            return false;
-
-        }catch (SQLException e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean checkEmailAndPassword(String email, String password){
-        if(checkEmail(email) && checkPassword(password)){
-            System.out.println("zalogowany");
-            return true;
-        }else {
             System.out.println("nie ma takiego użytkownika");
+            return false;
+
+        }catch (SQLException e){
+            e.printStackTrace();
             return false;
         }
     }
