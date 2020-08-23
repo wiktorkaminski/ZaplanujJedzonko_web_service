@@ -103,7 +103,7 @@
             </div>
             <div class="m-4 p-4 border-dashed">
                 <h2 class="dashboard-content-title">
-                    <span>Ostatnio dodany plan:</span> Plan jak u mamy
+                    <span>Ostatnio dodany plan:</span> ${recentPlanName}
                 </h2>
                 <table class="table">
                     <thead>
