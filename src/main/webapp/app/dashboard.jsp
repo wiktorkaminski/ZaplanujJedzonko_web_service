@@ -1,30 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Panel użytkownika</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/" class="navbar-brand main-logo main-logo-smaller">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">${firstName}</h4>
-            <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
-        </div>
-    </nav>
-</header>
+
+<%-- app-header--%>
+<%@ include file="/WEB-INF/jspf/app-header.jsp" %>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
@@ -36,19 +30,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app-recipes.html">
+                <a class="nav-link" href="/recipes">
                     <span>Przepisy</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app-schedules.html">
+                <a class="nav-link" href="/schedules">
                     <span>Plany</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/app-edit-user-data.html">
+                <a class="nav-link" href="/edit-admin">
                     <span>Edytuj dane</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
@@ -105,75 +99,45 @@
                 <h2 class="dashboard-content-title">
                     <span>Ostatnio dodany plan:</span> ${recentPlanName}
                 </h2>
-                <c:forEach items="${weekdaysInPlan}" var="weekday">
                 <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">${weekday}</th>
-                        <th class="col-8"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <c:forEach items="${recentPlan}" var="recentPlanDetail">
-                    <tbody>
-                    <c:if test="${recentPlanDetail.dayName eq weekday}">
-                    <tr class="d-flex">
-                        <td class="col-2">${recentPlanDetail.mealName}</td>
-                        <td class="col-8">${recentPlanDetail.recipeName}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    </c:if>
-                    <%--                    <tr class="d-flex">--%>
-<%--                        <td class="col-2">śniadanie</td>--%>
-<%--                        <td class="col-8">kanapka z pastą rybną</td>--%>
-<%--                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>--%>
-<%--                    </tr>--%>
-<%--                    <tr class="d-flex">--%>
-<%--                        <td class="col-2">obiad</td>--%>
-<%--                        <td class="col-8">zupa pomidorowa</td>--%>
-<%--                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>--%>
-<%--                    </tr>--%>
-                    </tbody>
+                    <c:forEach items="${weekdaysInPlan}" var="weekday">
+                        <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">${weekday}</th>
+                            <th class="col-8"></th>
+                            <th class="col-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${recentPlan}" var="recentPlanDetail">
+
+                            <c:if test="${recentPlanDetail.dayName eq weekday}">
+                                <tr class="d-flex">
+                                    <td class="col-2">${recentPlanDetail.mealName}</td>
+                                    <td class="col-8">${recentPlanDetail.recipeName}</td>
+                                    <td class="col-2">
+                                        <button type="button" class="btn btn-primary rounded-0">Szczegóły</button>
+                                    </td>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
+                        </tbody>
                     </c:forEach>
                 </table>
-                </c:forEach>
-<%--                <table class="table">--%>
-<%--                    <thead>--%>
-<%--                    <tr class="d-flex">--%>
-<%--                        <th class="col-2">Wtorek</th>--%>
-<%--                        <th class="col-8"></th>--%>
-<%--                        <th class="col-2"></th>--%>
-<%--                    </tr>--%>
-<%--                    </thead>--%>
-<%--                    <tbody>--%>
-<%--                    <tr class="d-flex">--%>
-<%--                        <td class="col-2">śniadanie</td>--%>
-<%--                        <td class="col-8">płatki owsiane z jagodami i komosą ryżową</td>--%>
-<%--                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>--%>
-<%--                    </tr>--%>
-<%--                    <tr class="d-flex">--%>
-<%--                        <td class="col-2">drugie śniadanie</td>--%>
-<%--                        <td class="col-8">pączki</td>--%>
-<%--                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>--%>
-<%--                    </tr>--%>
-<%--                    <tr class="d-flex">--%>
-<%--                        <td class="col-2">obiad</td>--%>
-<%--                        <td class="col-8">schabowy w panierce</td>--%>
-<%--                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>--%>
-<%--                    </tr>--%>
-<%--                    </tbody>--%>
-<%--                </table>--%>
             </div>
         </div>
     </div>
 </section>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 </body>
 </html>

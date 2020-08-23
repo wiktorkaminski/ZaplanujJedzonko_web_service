@@ -34,7 +34,7 @@ public class Dashboard extends HttpServlet {
 
 //        IMPORTANT: getting logged admin_id
         HttpSession session = request.getSession();
-        int adminId = (int) session.getAttribute("adminId"); // !! UWAGA: założenie, że w sesji będzie strybut adminID
+        int adminId = (int) session.getAttribute("adminId"); // !! UWAGA: założenie, że w sesji będzie atrybut adminID
 
 //        passing counters and current admin name
         session.setAttribute("plansNumber", planDao.countPlansByAdminId(adminId));
