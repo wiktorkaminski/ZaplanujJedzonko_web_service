@@ -6,22 +6,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Edytowanie danych</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    <title>Zmiana hasła</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
 <body>
-
 <%-- app-header--%>
 <%@ include file="/WEB-INF/jspf/app-header.jsp" %>
-
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
@@ -32,12 +28,13 @@
 
         <div class="m-4 p-3 width-medium text-color-darker">
             <div class="m-4 border-dashed view-height">
-                <!-- fix action, method -->
-                <!-- add name attribute for all inputs -->
-                <form>
-                    <div class="mt-4 ml-4 mr-4">
+                <div class="mt-4 ml-4 mr-4">
+                    <!-- fix action, method -->
+                    <!-- add name attribute for all inputs -->
+                    <form>
+
                         <div class="row border-bottom border-3">
-                            <div class="col"><h3 class="color-header text-uppercase">Edytuj dane</h3></div>
+                            <div class="col"><h3 class="color-header text-uppercase">Zmień hasło</h3></div>
                             <div class="col d-flex justify-content-end mb-2">
                                 <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz
                                 </button>
@@ -47,28 +44,23 @@
                         <table class="table borderless">
                             <tbody>
                             <tr class="d-flex">
-                                <th scope="row" class="col-2"><h4>Imię</h4></th>
+                                <th scope="row" class="col-2"><h4>Nowe hasło</h4></th>
                                 <td class="col-7">
-                                    <input class="w-100 p-1" value="Marek">
+                                    <input class="w-100 p-1" value="">
                                 </td>
                             </tr>
                             <tr class="d-flex">
-                                <th scope="row" class="col-2"><h4>Nazwisko</h4></th>
+                                <th scope="row" class="col-2"><h4>Powtórz hasło</h4></th>
                                 <td class="col-7">
-                                    <input class="w-100 p-1" value="Markowski">
-                                </td>
-                            </tr>
-                            <tr class="d-flex">
-                                <th scope="row" class="col-2"><h4>Email</h4></th>
-                                <td class="col-3">
-                                    <input class="p-1 w-100" type="text" value="marek@mark.pl">
+                                    <input class="w-100 p-1" value="">
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 </section>

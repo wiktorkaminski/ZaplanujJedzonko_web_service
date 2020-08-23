@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Twoje plany</title>
+    <title>Lista użytkowników</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
@@ -25,53 +25,56 @@
         <%-- left navbar list with links to servlets--%>
         <%@ include file="/WEB-INF/jspf/app-left-nav-list.jsp" %>
 
-
         <div class="m-4 p-3 width-medium">
-            <div class="dashboard-content border-dashed p-3 m-4 view-height">
+            <div class="m-4 p-3 border-dashed view-height">
+
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding">
-                        <h3 class="color-header text-uppercase">LISTA PLANÓW</h3>
+                        <h3 class="color-header text-uppercase">LISTA UŻYTKOWNIKÓW</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <a href="app-add-schedules.html" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj plan</a>
+                        <a href="#" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
                     </div>
                 </div>
 
                 <div class="schedules-content">
-                    <table class="table border-bottom">
+                    <table class="table">
                         <thead>
                         <tr class="d-flex">
                             <th class="col-1">ID</th>
-                            <th class="col-2">NAZWA</th>
-                            <th class="col-7">OPIS</th>
+                            <th class="col-3">IMIĘ</th>
+                            <th class="col-6">NAZWISKO</th>
                             <th class="col-2 center">AKCJE</th>
                         </tr>
                         </thead>
                         <tbody class="text-color-lighter">
                         <tr class="d-flex">
                             <td class="col-1">1</td>
-                            <td class="col-2">Plan jarski na bezmięsny tydzień</td>
-                            <td class="col-7">
-                                Pojęcie kuchnia wegetariańska określa pożywienie, które ani nie zawiera mięsa, ani nie zostało przygotowane na bazie pochodzącej z mięsa (np. na rosole drobiowym). Laktoowowegetarianie (najczęściej spotykany typ wegetarian w zachodnim świecie) spożywają nabiał, laktowegetarianie wykluczają jaja, ale nie inne produkty nabiałowe.
-                            </td>
-                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap"><a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href="/app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+                            <td class="col-3">Marek</td>
+                            <td class="col-6">Marecki</td>
+                            <td class="col-2 center">
+                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Blokuj</a>
                             </td>
                         </tr>
                         <tr class="d-flex">
                             <td class="col-1">2</td>
-                            <td class="col-2">Plan jarski na bezmięsny tydzień</td>
-                            <td class="col-7">
-                                Pojęcie kuchnia wegetariańska określa pożywienie, które ani nie zawiera mięsa, ani nie zostało przygotowane na bazie pochodzącej z mięsa (np. na rosole drobiowym). Laktoowowegetarianie (najczęściej spotykany typ wegetarian w zachodnim świecie) spożywają nabiał, laktowegetarianie wykluczają jaja, ale nie inne produkty nabiałowe.
+                            <td class="col-3">Marek</td>
+                            <td class="col-6">Marecki</td>
+                            <td class="col-2 center">
+                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Blokuj</a>
                             </td>
-                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap"><a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href="/app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-1">3</td>
+                            <td class="col-3">Marek</td>
+                            <td class="col-6">Marecki</td>
+                            <td class="col-2 center">
+                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Blokuj</a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
