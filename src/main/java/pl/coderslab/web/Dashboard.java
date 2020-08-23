@@ -17,7 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-@WebServlet(name = "Dashboard", value = "/dashboard")
+@WebServlet(name = "Dashboard", value = "/app/dashboard")
 public class Dashboard extends HttpServlet {
     private final String READ_ADMIN_DATA = "SELECT * FROM admins WHERE id = ?";
 

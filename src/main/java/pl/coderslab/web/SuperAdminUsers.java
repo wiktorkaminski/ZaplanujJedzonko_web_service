@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SuperAdminUsers", value = "/super-admin-users")
+@WebServlet(name = "SuperAdminUsers", value = "/app/super-admin-users")
 public class SuperAdminUsers extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
