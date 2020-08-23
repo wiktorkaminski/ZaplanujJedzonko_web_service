@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.RecentPlanDetail;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.Connection;
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PlanDao {
@@ -17,6 +19,15 @@ public class PlanDao {
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id = ?;";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?,  admin_id = ? WHERE id = ?;";
+    private static final String COUNT_PLANS_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfPlans FROM plan WHERE admin_id = ?;";
+    private static final String FIND_RECENT_PLAN_QUERY =
+                    "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description\n" +
+                    "FROM `recipe_plan`\n" +
+                    "JOIN day_name on day_name.id=day_name_id\n" +
+                    "JOIN recipe on recipe.id=recipe_id WHERE\n" +
+                    "recipe_plan.plan_id = (SELECT MAX(id) from plan WHERE admin_id = ?)\n" +
+                    "ORDER by day_name.display_order, recipe_plan.display_order;";
+
 
     public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
@@ -117,6 +128,44 @@ public class PlanDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Integer countPlansByAdminId(Integer adminId) {
+        int plansCounter = 0;
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(COUNT_PLANS_BY_ADMIN_ID_QUERY)
+        ) {
+            preparedStatement.setInt(1, adminId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                plansCounter = resultSet.getInt("numOfPlans");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plansCounter;
+    }
+
+    public List<RecentPlanDetail> findRecentPlan (int adminId) {
+        List <RecentPlanDetail> planDetails = new LinkedList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(FIND_RECENT_PLAN_QUERY)
+        ) {
+            preparedStatement.setInt(1, adminId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                RecentPlanDetail tempPlanDetails = new RecentPlanDetail(
+                        resultSet.getString("day_name"),            // setting value in constructor
+                        resultSet.getString("meal_name"),           // setting value in constructor
+                        resultSet.getString("recipe_name"),         // setting value in constructor
+                        resultSet.getString("recipe_description")   // setting value in constructor
+                );
+                planDetails.add(tempPlanDetails);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return planDetails;
     }
 
 }

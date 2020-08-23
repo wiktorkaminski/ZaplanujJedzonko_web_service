@@ -1,7 +1,6 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
-import pl.coderslab.model.Book;
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
@@ -24,6 +23,7 @@ public class RecipeDao {
                     "updated = NOW(), " +
                     "preparation = ? " +
                     "WHERE id = ?;";
+    private static final String COUNT_RECIPES_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfRecipes FROM recipe WHERE admin_id = ?;";
 
     /**
      * Get recipe by id
@@ -127,7 +127,8 @@ public class RecipeDao {
 
     /**
      * Update recipe
-     *     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ? WHERE id = ?;";
+     * private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ? , ingredients = ?, description = ?, updated = NOW(), preparation_time = ?, preparation = ? WHERE id = ?;";
+     *
      * @param recipe
      */
     public void update(Recipe recipe) {
@@ -164,6 +165,22 @@ public class RecipeDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Integer countRecipesByAdminId(Integer adminId) {
+        int recipesCounter = 0;
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(COUNT_RECIPES_BY_ADMIN_ID_QUERY)
+        ) {
+            preparedStatement.setInt(1, adminId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                recipesCounter = resultSet.getInt("numOfRecipes");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recipesCounter;
     }
 
 }
