@@ -18,7 +18,7 @@ public class AdminDao {
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT * FROM admins;";
     private static final String READ_ADMIN_QUERY = "SELECT * from admins where id = ?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE	admins SET first_name = ?, last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE	id = ?;";
-
+    public static final String CHECK_EMAIL_PASS = "SELECT * FROM admins WHERE email = ?";
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
@@ -138,7 +138,8 @@ public class AdminDao {
 
     public boolean checkEmailAndPassword(String email, String password){
         try (Connection connection = DbUtil.getConnection();
-        PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMINS_QUERY)){
+        PreparedStatement statement = connection.prepareStatement(CHECK_EMAIL_PASS)){
+            statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
                 if (email.equals(resultSet.getString("email")) &&
@@ -153,6 +154,26 @@ public class AdminDao {
         }catch (SQLException e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public int returnId(String email, String password){
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(CHECK_EMAIL_PASS)){
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                if (email.equals(resultSet.getString("email")) &&
+                        BCrypt.checkpw(password, resultSet.getString("password"))){
+                    System.out.println("ID= " + resultSet.getInt("id"));
+                    return resultSet.getInt("id");
+                }
+            }
+            return 0;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
         }
     }
 }

@@ -15,7 +15,6 @@ import java.util.Map;
 @WebServlet(name = "Registration", value = "/register")
 public class Registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
 
