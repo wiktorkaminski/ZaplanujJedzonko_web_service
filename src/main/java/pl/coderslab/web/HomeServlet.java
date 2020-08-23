@@ -2,11 +2,6 @@ package pl.coderslab.web;
 
 import pl.coderslab.dao.AdminDao;
 import pl.coderslab.dao.BookDao;
-<<<<<<< HEAD
-import pl.coderslab.model.Admin;
-=======
-import pl.coderslab.dao.PlanDao;
->>>>>>> 5_strona_główna_aplikacji
 import pl.coderslab.model.Book;
 import pl.coderslab.model.RecentPlanDetail;
 
