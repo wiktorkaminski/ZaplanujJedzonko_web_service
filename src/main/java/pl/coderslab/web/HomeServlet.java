@@ -1,14 +1,7 @@
 package pl.coderslab.web;
 
-import pl.coderslab.dao.AdminDao;
 import pl.coderslab.dao.BookDao;
-<<<<<<< HEAD
-import pl.coderslab.model.Admin;
-=======
-import pl.coderslab.dao.PlanDao;
->>>>>>> 5_strona_główna_aplikacji
 import pl.coderslab.model.Book;
-import pl.coderslab.model.RecentPlanDetail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +25,7 @@ public class HomeServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute("adminId", 1);
-        
+
         getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
     }
 }
