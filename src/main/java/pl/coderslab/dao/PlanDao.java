@@ -185,7 +185,7 @@ public class PlanDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return "Dodaj swój pierwszy plan aby zobaczyć szczegóły.";
     }
 
 }

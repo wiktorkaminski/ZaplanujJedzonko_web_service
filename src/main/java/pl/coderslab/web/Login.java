@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
             HttpSession session = request.getSession();
 
             session.setAttribute("adminId", adminDao.returnId(email, password));
-            response.sendRedirect("/dashboard.jsp");
+            response.sendRedirect("/app/dashboard");
         }
     }
 
