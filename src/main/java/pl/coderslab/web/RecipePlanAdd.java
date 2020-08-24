@@ -43,7 +43,7 @@ public class RecipePlanAdd extends HttpServlet {
         List<Plan> plansByAdminId = planDao.findPlansByAdminId(adminId);
         session.setAttribute("plansByAdminId", plansByAdminId);
 
-        List<Recipe> recipes = recipeDao.findAll();
+        List<Recipe> recipes = recipeDao.findRecipesByAdminId(adminId);
         session.setAttribute("recipes", recipes);
 
         List<DayName> dayNames = dayNameDao.findAll();
