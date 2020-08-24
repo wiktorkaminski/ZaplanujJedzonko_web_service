@@ -27,6 +27,11 @@ public class PlanDao {
                     "JOIN recipe on recipe.id=recipe_id WHERE\n" +
                     "recipe_plan.plan_id = (SELECT MAX(id) from plan WHERE admin_id = ?)\n" +
                     "ORDER by day_name.display_order, recipe_plan.display_order;";
+    private static final String FIND_RECENT_PLAN_NAME_QUERY =
+                    "SELECT plan.name AS plan_name FROM plan\n" +
+                    "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
+
+
 
 
     public Plan create(Plan plan) {
@@ -166,6 +171,21 @@ public class PlanDao {
             e.printStackTrace();
         }
         return planDetails;
+    }
+
+    public String finRecentPlanName(int adminId) {
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(FIND_RECENT_PLAN_NAME_QUERY)
+        ) {
+            preparedStatement.setInt(1, adminId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("plan_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }
