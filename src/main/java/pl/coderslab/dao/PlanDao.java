@@ -31,7 +31,7 @@ public class PlanDao {
             "SELECT plan.name AS plan_name FROM plan\n" +
                     "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
     private static final String FIND_PLANS_BY_ADMIN_ID_QUERY = "SELECT * FROM plan WHERE admin_id = ?;";
-
+    private static final String ADD_RECIPE_TO_PLAN_QUERY = "INSERT INTO recipe_plan (recipe_id, meal_name, display_order, day_name_id, plan_id) VALUES (?,?,?,?,?);";
 
     public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
@@ -208,6 +208,22 @@ public class PlanDao {
             e.printStackTrace();
         }
         return planList;
+    }
+
+    public void addRecipeToPlan(int recipeId, String mealName, int displayOrder, int dayNameId, int planId) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_RECIPE_TO_PLAN_QUERY)) {
+            statement.setInt(1, recipeId);
+            statement.setString(2, mealName);
+            statement.setInt(3, displayOrder);
+            statement.setInt(4, dayNameId);
+            statement.setInt(5, planId);
+
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

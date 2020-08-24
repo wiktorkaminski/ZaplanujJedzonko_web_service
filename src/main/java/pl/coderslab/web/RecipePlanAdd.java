@@ -19,6 +19,15 @@ import java.util.List;
 @WebServlet(name = "RecipePlanAdd", value = "/app/recipe/plan/add")
 public class RecipePlanAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PlanDao planDao = new PlanDao();
+
+        int recipeId = Integer.parseInt(request.getParameter("recipeId"));
+        String mealName = request.getParameter("mealName");
+        int displayOrder = Integer.parseInt(request.getParameter("displayOrder"));
+        int dayNameId = Integer.parseInt(request.getParameter("dayNameId"));
+        int planId = Integer.parseInt(request.getParameter("planId"));
+
+        planDao.addRecipeToPlan(recipeId, mealName, displayOrder, dayNameId, planId);
 
         getServletContext().getRequestDispatcher("/app/recipe/plan/add").forward(request, response);
     }
@@ -39,7 +48,6 @@ public class RecipePlanAdd extends HttpServlet {
 
         List<DayName> dayNames = dayNameDao.findAll();
         session.setAttribute("dayNames", dayNames);
-
 
         getServletContext().getRequestDispatcher("/app/app-schedules-meal-recipe.jsp").forward(request, response);
     }

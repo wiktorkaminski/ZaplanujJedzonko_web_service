@@ -33,12 +33,14 @@
                         <h3 class="color-header text-uppercase">DODAJ PRZEPIS DO PLANU</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <button type="submit" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</button>
+                        <button type="submit" form="addRecipeToPlan"
+                                class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz
+                        </button>
                     </div>
                 </div>
 
                 <div class="schedules-content">
-                    <form action="app/recipe/plan/add" method="post">
+                    <form action="/app/recipe/plan/add" method="post" id="addRecipeToPlan">
                         <div class="form-group row">
                             <label for="choosePlan" class="col-sm-2 label-size col-form-label">
                                 Wybierz plan
