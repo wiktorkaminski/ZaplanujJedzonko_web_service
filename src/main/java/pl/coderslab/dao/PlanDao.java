@@ -30,6 +30,12 @@ public class PlanDao {
     private static final String FIND_RECENT_PLAN_NAME_QUERY =
                     "SELECT plan.name AS plan_name FROM plan\n" +
                     "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
+    private static final String FIND_MEALS_IN_PLAN_QUERY =
+            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+            "FROM `recipe_plan`\n" +
+            "JOIN day_name on day_name.id=day_name_id\n" +
+            "JOIN recipe on recipe.id=recipe_id WHERE plan_id = 6 " +
+            "ORDER by day_name.display_order, recipe_plan.display_order;";
 
 
 
@@ -186,6 +192,28 @@ public class PlanDao {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public List<RecentPlanDetail> findMealsInPlan (int planId) {
+        List <RecentPlanDetail> planDetails = new LinkedList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(FIND_MEALS_IN_PLAN_QUERY)
+        ) {
+            preparedStatement.setInt(1, planId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                RecentPlanDetail tempPlanDetails = new RecentPlanDetail(
+                        resultSet.getString("day_name"),            // setting value in constructor
+                        resultSet.getString("meal_name"),           // setting value in constructor
+                        resultSet.getString("recipe_name"),         // setting value in constructor
+                        resultSet.getString("recipe_description")   // setting value in constructor
+                );
+                planDetails.add(tempPlanDetails);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return planDetails;
     }
 
 }
