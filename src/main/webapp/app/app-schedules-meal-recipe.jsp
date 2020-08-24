@@ -67,8 +67,8 @@
                                 Numer posiłku
                             </label>
                             <div class="col-sm-2">
-                                <input name="displayOrder" type="text" class="form-control" value="" id="number"
-                                       placeholder="Numer posiłku">
+                                <input name="displayOrder" type="number" min="1" max="5" class="form-control" value="1"
+                                       id="number">
                             </div>
                         </div>
                         <div class="form-group row">
