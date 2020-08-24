@@ -21,17 +21,16 @@ public class PlanDao {
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?,  admin_id = ? WHERE id = ?;";
     private static final String COUNT_PLANS_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfPlans FROM plan WHERE admin_id = ?;";
     private static final String FIND_RECENT_PLAN_QUERY =
-                    "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description\n" +
+            "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description\n" +
                     "FROM `recipe_plan`\n" +
                     "JOIN day_name on day_name.id=day_name_id\n" +
                     "JOIN recipe on recipe.id=recipe_id WHERE\n" +
                     "recipe_plan.plan_id = (SELECT MAX(id) from plan WHERE admin_id = ?)\n" +
                     "ORDER by day_name.display_order, recipe_plan.display_order;";
     private static final String FIND_RECENT_PLAN_NAME_QUERY =
-                    "SELECT plan.name AS plan_name FROM plan\n" +
+            "SELECT plan.name AS plan_name FROM plan\n" +
                     "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
-
-
+    private static final String FIND_PLANS_BY_ADMIN_ID_QUERY = "SELECT * FROM plan WHERE admin_id = ?;";
 
 
     public Plan create(Plan plan) {
@@ -151,8 +150,8 @@ public class PlanDao {
         return plansCounter;
     }
 
-    public List<RecentPlanDetail> findRecentPlan (int adminId) {
-        List <RecentPlanDetail> planDetails = new LinkedList<>();
+    public List<RecentPlanDetail> findRecentPlan(int adminId) {
+        List<RecentPlanDetail> planDetails = new LinkedList<>();
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(FIND_RECENT_PLAN_QUERY)
         ) {
@@ -186,6 +185,29 @@ public class PlanDao {
             e.printStackTrace();
         }
         return "Dodaj swój pierwszy plan aby zobaczyć szczegóły.";
+    }
+
+    public List<Plan> findPlansByAdminId(int adminId) {
+        List<Plan> planList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_PLANS_BY_ADMIN_ID_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Plan planToAdd = new Plan();
+                    planToAdd.setId(resultSet.getInt("id"));
+                    planToAdd.setName(resultSet.getString("name"));
+                    planToAdd.setDescription(resultSet.getString("description"));
+                    planToAdd.setCreated(resultSet.getString("created"));
+                    planToAdd.setAdminId(resultSet.getInt("admin_id"));
+                    planList.add(planToAdd);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
     }
 
 }
