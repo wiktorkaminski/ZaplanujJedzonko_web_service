@@ -29,7 +29,7 @@ public class RecipePlanAdd extends HttpServlet {
 
         planDao.addRecipeToPlan(recipeId, mealName, displayOrder, dayNameId, planId);
 
-        getServletContext().getRequestDispatcher("/app/recipe/plan/add").forward(request, response);
+        response.sendRedirect("/app/recipe/plan/add");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

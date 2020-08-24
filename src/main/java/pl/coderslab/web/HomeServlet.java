@@ -1,7 +1,6 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.BookDao;
-import pl.coderslab.dao.PlanDao;
 import pl.coderslab.model.Book;
 
 import javax.servlet.ServletException;
@@ -25,10 +24,7 @@ public class HomeServlet extends HttpServlet {
         System.out.println(books);
 
         HttpSession session = request.getSession();
-        session.setAttribute("adminId", 7);
-
-//        PlanDao planDao = new PlanDao();
-//        planDao.addRecipeToPlan(1, "Obiad", 2, 7, 8);
+        session.setAttribute("adminId", 1);
 
         getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
     }
