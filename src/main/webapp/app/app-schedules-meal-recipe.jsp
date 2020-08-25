@@ -59,7 +59,7 @@
                             </label>
                             <div class="col-sm-10">
                                 <input name="mealName" type="text" class="form-control" value="" id="name"
-                                       placeholder="Nazwa posiłku">
+                                       placeholder="Nazwa posiłku" required>
                             </div>
                         </div>
                         <div class="form-group row">
