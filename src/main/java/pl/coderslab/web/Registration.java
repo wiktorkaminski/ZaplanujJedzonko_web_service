@@ -15,22 +15,30 @@ import java.util.Map;
 @WebServlet(name = "Registration", value = "/register")
 public class Registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AdminDao adminDao = new AdminDao();
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
+        String email = request.getParameter("email");
 
         if (!password.equals(repassword)) {
             getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
             return;
         }
 
+//        --- checking if email is unique ---
+        if (!adminDao.checkIfEmailIsUnique(email)) {
+            getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+            return;
+        }
+
+
         Admin newAdmin = new Admin();
         newAdmin.setFirstName(request.getParameter("firstName"));
         newAdmin.setLastName(request.getParameter("lastName"));
-        newAdmin.setEmail(request.getParameter("email"));
+        newAdmin.setEmail(email);
         newAdmin.setPassword(password);
+        newAdmin.setEnable(1);
 
-
-        AdminDao adminDao = new AdminDao();
         adminDao.create(newAdmin);
 
         //getServletContext().getRequestDispatcher("/login").forward(request, response);
