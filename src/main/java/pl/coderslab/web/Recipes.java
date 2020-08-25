@@ -23,7 +23,8 @@ public class Recipes extends HttpServlet {
         RecipeDao recipeDao = new RecipeDao();
         HttpSession session = request.getSession();
 
-        List<Recipe> recipes = recipeDao.findAll();
+        int adminId = (int) session.getAttribute("adminId");
+        List<Recipe> recipes = recipeDao.findRecipesByAdminId(adminId);
         Collections.reverse(recipes);
 
         session.setAttribute("recipes", recipes);

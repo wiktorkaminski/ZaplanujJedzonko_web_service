@@ -24,6 +24,7 @@ public class RecipeDao {
                     "preparation = ? " +
                     "WHERE id = ?;";
     private static final String COUNT_RECIPES_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfRecipes FROM recipe WHERE admin_id = ?;";
+    private static final String FIND_RECIPES_BY_ADMIN_ID_QUERY = "SELECT * FROM recipe WHERE admin_id = ?;";
 
     /**
      * Get recipe by id
@@ -181,6 +182,33 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return recipesCounter;
+    }
+
+    public List<Recipe> findRecipesByAdminId(int adminId) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_RECIPES_BY_ADMIN_ID_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe tempRecipe = new Recipe();
+                    tempRecipe.setId(resultSet.getInt("id"));
+                    tempRecipe.setName(resultSet.getString("name"));
+                    tempRecipe.setIngredients(resultSet.getString("ingredients"));
+                    tempRecipe.setDescription(resultSet.getString("description"));
+                    tempRecipe.setCreated(resultSet.getString("created"));
+                    tempRecipe.setUpdated(resultSet.getString("updated"));
+                    tempRecipe.setPreparationTime(resultSet.getInt("preparation_time"));
+                    tempRecipe.setPreparation(resultSet.getString("preparation"));
+                    tempRecipe.setAdminId(resultSet.getInt("admin_id"));
+                    recipeList.add(tempRecipe);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
     }
 
 }
