@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.PlanDetail;
 import pl.coderslab.model.RecentPlanDetail;
 import pl.coderslab.utils.DbUtil;
 
@@ -31,10 +32,10 @@ public class PlanDao {
                     "SELECT plan.name AS plan_name FROM plan\n" +
                     "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
     private static final String FIND_MEALS_IN_PLAN_QUERY =
-            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, recipe.id as recipe_id\n" +
             "FROM `recipe_plan`\n" +
             "JOIN day_name on day_name.id=day_name_id\n" +
-            "JOIN recipe on recipe.id=recipe_id WHERE plan_id = 6 " +
+            "JOIN recipe on recipe.id=recipe_id WHERE plan_id = ? " +
             "ORDER by day_name.display_order, recipe_plan.display_order;";
 
 
@@ -194,19 +195,20 @@ public class PlanDao {
         return "";
     }
 
-    public List<RecentPlanDetail> findMealsInPlan (int planId) {
-        List <RecentPlanDetail> planDetails = new LinkedList<>();
+    public List<PlanDetail> findMealsInPlan (int planId) {
+        List <PlanDetail> planDetails = new LinkedList<>();
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(FIND_MEALS_IN_PLAN_QUERY)
         ) {
             preparedStatement.setInt(1, planId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                RecentPlanDetail tempPlanDetails = new RecentPlanDetail(
+                PlanDetail tempPlanDetails = new PlanDetail(
                         resultSet.getString("day_name"),            // setting value in constructor
                         resultSet.getString("meal_name"),           // setting value in constructor
                         resultSet.getString("recipe_name"),         // setting value in constructor
-                        resultSet.getString("recipe_description")   // setting value in constructor
+                        resultSet.getString("recipe_description"),  // setting value in constructor
+                        resultSet.getInt("recipe_id")               // setting value in constructor
                 );
                 planDetails.add(tempPlanDetails);
             }

@@ -3,6 +3,7 @@ package pl.coderslab.web;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.PlanDetail;
 import pl.coderslab.model.RecentPlanDetail;
 
 import javax.servlet.ServletException;
@@ -24,22 +25,22 @@ public class ScheduleDetails extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PlanDao planDao = new PlanDao();
-        RecipeDao recipeDao = new RecipeDao();
         HttpSession session = request.getSession();
 
 //        IMPORTANT: assumed that plan_id will be passed as "planId" parameter
         int planId = Integer.parseInt(request.getParameter("planId"));
+        session.setAttribute("plan", planDao.read(planId));
 
-//        passing which weekdays are in recent plan
-        List<RecentPlanDetail> planDetails = planDao.findMealsInPlan(planId);
+//        passing which weekdays are in plan
+        List<PlanDetail> planDetails = planDao.findMealsInPlan(planId);
         Set<String> weekdaysInPlan = new LinkedHashSet<>();
         for (RecentPlanDetail recentPlanDetail : planDetails) {
             weekdaysInPlan.add(recentPlanDetail.getDayName());
         }
         session.setAttribute("weekdaysInPlan", weekdaysInPlan);
 
-//        passing recent plan details
-        session.setAttribute("plan", planDetails);
+//        passing meals in plan
+        session.setAttribute("planDetails", planDetails);
 
         getServletContext().getRequestDispatcher("/app/schedule-details.jsp").forward(request, response);
     }
