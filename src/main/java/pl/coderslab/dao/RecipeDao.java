@@ -216,7 +216,7 @@ public class RecipeDao {
              PreparedStatement statement = connection.prepareStatement(RECIPE_IS_NOT_PART_OF_PLAN)){
             statement.setInt(1, recipeId);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if(!resultSet.next()){
                 return true;
             }
         }catch (SQLException e){
