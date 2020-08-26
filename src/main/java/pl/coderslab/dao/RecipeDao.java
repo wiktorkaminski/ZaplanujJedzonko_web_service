@@ -25,7 +25,7 @@ public class RecipeDao {
                     "WHERE id = ?;";
     private static final String COUNT_RECIPES_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfRecipes FROM recipe WHERE admin_id = ?;";
     private static final String FIND_RECIPES_BY_ADMIN_ID_QUERY = "SELECT * FROM recipe WHERE admin_id = ?;";
-
+    public static final String RECIPE_IS_NOT_PART_OF_PLAN = "SELECT * FROM recipe_plan WHERE recipe_id = ?;";
     /**
      * Get recipe by id
      *
@@ -209,6 +209,20 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return recipeList;
+    }
+
+    public boolean recipeIsNotPartOfPlan(int recipeId){
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(RECIPE_IS_NOT_PART_OF_PLAN)){
+            statement.setInt(1, recipeId);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
