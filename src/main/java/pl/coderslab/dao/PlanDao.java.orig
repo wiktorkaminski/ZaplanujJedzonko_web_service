@@ -31,10 +31,8 @@ public class PlanDao {
     private static final String FIND_RECENT_PLAN_NAME_QUERY =
             "SELECT plan.name AS plan_name FROM plan\n" +
                     "WHERE id = (SELECT MAX(id) FROM plan WHERE admin_id = ?);";
-<<<<<<< HEAD
     private static final String FIND_PLANS_BY_ADMIN_ID_QUERY = "SELECT * FROM plan WHERE admin_id = ?;";
     private static final String ADD_RECIPE_TO_PLAN_QUERY = "INSERT INTO recipe_plan (recipe_id, meal_name, display_order, day_name_id, plan_id) VALUES (?,?,?,?,?);";
-=======
     private static final String FIND_MEALS_IN_PLAN_QUERY =
             "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, recipe.id as recipe_id\n" +
             "FROM `recipe_plan`\n" +
@@ -44,7 +42,6 @@ public class PlanDao {
 
 
 
->>>>>>> 11_szczegoly_planu
 
     public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
