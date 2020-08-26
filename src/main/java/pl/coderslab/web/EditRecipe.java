@@ -41,7 +41,6 @@ public class EditRecipe extends HttpServlet {
         RecipeDao recipeDao = new RecipeDao();
         Recipe recipe = recipeDao.read(recipeId);
         session.setAttribute("recipe", recipe);
-//        System.out.println(recipe);
 
         getServletContext().getRequestDispatcher("/app/app-edit-recipe.jsp").forward(request, response);
     }
