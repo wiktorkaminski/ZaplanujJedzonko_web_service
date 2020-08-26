@@ -34,8 +34,8 @@ public class ScheduleDetails extends HttpServlet {
 //        passing which weekdays are in plan
         List<PlanDetail> planDetails = planDao.findMealsInPlan(planId);
         Set<String> weekdaysInPlan = new LinkedHashSet<>();
-        for (RecentPlanDetail recentPlanDetail : planDetails) {
-            weekdaysInPlan.add(recentPlanDetail.getDayName());
+        for (PlanDetail PlanDetail : planDetails) {
+            weekdaysInPlan.add(PlanDetail.getDayName());
         }
         session.setAttribute("weekdaysInPlan", weekdaysInPlan);
 
