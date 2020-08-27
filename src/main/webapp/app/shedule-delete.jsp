@@ -34,7 +34,7 @@
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
                         <a href="/app/plan/delete/confirm" class="btn btn-info rounded-0 text-light m-1">TAK</a>
-                        <a href="list/" class="btn btn-info rounded-0 text-light m-1">NIE</a>
+                        <a href="list" class="btn btn-info rounded-0 text-light m-1">NIE</a>
                     </div>
                 </div>
 
