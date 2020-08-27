@@ -24,7 +24,7 @@ public class HomeServlet extends HttpServlet {
         System.out.println(books);
 
         HttpSession session = request.getSession();
-        session.setAttribute("adminId", 1);
+        session.setAttribute("adminId", 7);
 
         getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
     }
