@@ -28,7 +28,8 @@ public class ScheduleAdd extends HttpServlet {
 
         planDao.create(newPlan);
 
-        getServletContext().getRequestDispatcher("/app/plan/list").forward(request, response);
+        //getServletContext().getRequestDispatcher("/app/plan/list").forward(request, response);
+        response.sendRedirect("/app/plan/list");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

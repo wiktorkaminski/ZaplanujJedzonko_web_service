@@ -23,7 +23,8 @@ public class Schedules extends HttpServlet {
         PlanDao planDao = new PlanDao();
         HttpSession session = request.getSession();
 
-        List<Plan> allPlans = planDao.findAll();
+        int adminId = (Integer) session.getAttribute("adminId");
+        List<Plan> allPlans = planDao.findPlansByAdminId(adminId);
         Collections.reverse(allPlans);
 
         session.setAttribute("allPlans", allPlans);
