@@ -12,6 +12,7 @@ import java.util.List;
 
 public class DayNameDao {
     public static final String FIND_ALL_DAY_NAMES_QUERY = "SELECT * FROM day_name";
+    public static final String FIND_DAY_ID_BY_NAME_QUERY = "SELECT * FROM day_name WHERE name = ?";
 
     public List<DayName> findAll() {
         List<DayName> dayNameList = new ArrayList<>();
@@ -31,5 +32,21 @@ public class DayNameDao {
             e.printStackTrace();
         }
         return dayNameList;
+    }
+
+    public int findDayIdByName(String name) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_DAY_ID_BY_NAME_QUERY);
+             ) {
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("id");
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

@@ -1,5 +1,8 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.DayNameDao;
+import pl.coderslab.model.DayName;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +17,12 @@ public class PlanDelConfirmation extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String dayName = request.getParameter("dayName");
+        DayNameDao dayNameDao = new DayNameDao();
+        dayNameDao.findDayIdByName(dayName);
+
+        request.setAttribute("dayNameId",  dayNameDao.findDayIdByName(dayName));
+
         getServletContext().getRequestDispatcher("/app/recipe-del-confirmation.jsp").forward(request, response);
     }
 }

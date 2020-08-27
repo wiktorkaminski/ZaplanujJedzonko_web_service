@@ -24,6 +24,6 @@ public class PlanRecipeDel extends HttpServlet {
 
         recipeDao.deleteRecipeFromPlan(recipeId,planId,dayNameId);
 
-        response.sendRedirect("/app/schedule-details.jsp?planId="+planId);
+        response.sendRedirect("/app/plan/list");
     }
 }

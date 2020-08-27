@@ -39,7 +39,7 @@
                                 <h3 class="color-header text-uppercase">POTWIERDŹ USUNIĘCIE PRZEPISU</h3>
                             </td>
                             <td class="col-1 center">
-                                <a href="/plan/del/recipe?recipeId=${param.recipeId}&planId=${param.planId}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                <a href="/app/plan/recipe-del?recipeId=${param.recipeId}&planId=${param.planId}&dayNameId=${dayNameId}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                             </td>
                             <td class="col-2 center">
                                 <a href="/app/plan/list" class="btn btn-info rounded-0 text-light m-1">Anuluj</a>

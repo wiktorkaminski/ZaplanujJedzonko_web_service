@@ -76,7 +76,7 @@
                                         <td class="col-2">${planDetail.mealName}</td>
                                         <td class="col-7">${planDetail.recipeDescription}</td>
                                         <td class="col-1 center">
-                                            <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                            <a href="/app/plan/del/recipe-del-confirmation?planId=${plan.id}&dayName=${planDetail.dayName}&recipeId=${planDetail.recipeId}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                         </td>
                                         <td class="col-2 center">
                                             <a href="/app/recipe/details?id=${planDetail.recipeId}"
