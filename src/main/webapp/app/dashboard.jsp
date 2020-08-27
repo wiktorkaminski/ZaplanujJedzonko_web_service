@@ -81,7 +81,7 @@
                                     <td class="col-2">${recentPlanDetail.mealName}</td>
                                     <td class="col-8">${recentPlanDetail.recipeName}</td>
                                     <td class="col-2">
-                                        <a href="/app/recipe/details?id=${recipe.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                        <a href="/app/recipe/details?id=${recentPlanDetail.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                     </td>
                                 </tr>
                             </c:if>
