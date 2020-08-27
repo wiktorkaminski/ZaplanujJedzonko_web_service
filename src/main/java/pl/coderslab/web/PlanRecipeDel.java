@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "PlanRecipeDel")
+@WebServlet(name = "PlanRecipeDel", value = "/app/plan/recipe-del")
 public class PlanRecipeDel extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -18,9 +18,11 @@ public class PlanRecipeDel extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int recipeId = Integer.parseInt(request.getParameter("recipeId"));
         int planId = Integer.parseInt(request.getParameter("planId"));
+        int dayNameId = Integer.parseInt(request.getParameter("dayNameId"));
+
         RecipeDao recipeDao = new RecipeDao();
 
-        recipeDao.deleteRecipeFromPlan(recipeId,planId);
+        recipeDao.deleteRecipeFromPlan(recipeId,planId,dayNameId);
 
         response.sendRedirect("/app/schedule-details.jsp?planId="+planId);
     }

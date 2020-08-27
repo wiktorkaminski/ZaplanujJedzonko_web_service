@@ -25,7 +25,7 @@ public class RecipeDao {
                     "WHERE id = ?;";
     private static final String COUNT_RECIPES_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfRecipes FROM recipe WHERE admin_id = ?;";
     private static final String FIND_RECIPES_BY_ADMIN_ID_QUERY = "SELECT * FROM recipe WHERE admin_id = ?;";
-    private static final String DELETE_RECIPE_FROM_PLAN_QUERY = "DELETE FROM recipe_plan where recipe_id = ? AND plan_id = ?;";
+    private static final String DELETE_RECIPE_FROM_PLAN_QUERY = "DELETE FROM recipe_plan where recipe_id = ? AND plan_id = ? AND day_name_id = ?;";
 
 
     /**
@@ -218,12 +218,14 @@ public class RecipeDao {
      *
      * @param recipeId
      * @param planId
+     * @param dayNameId
      */
-    public void deleteRecipeFromPlan(Integer recipeId, Integer planId) {
+    public void deleteRecipeFromPlan(Integer recipeId, Integer planId, Integer dayNameId) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_RECIPE_FROM_PLAN_QUERY)) {
             statement.setInt(1, recipeId);
             statement.setInt(2, planId);
+            statement.setInt(3, dayNameId);
             statement.executeUpdate();
 
             boolean deleted = statement.execute();
