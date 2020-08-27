@@ -29,7 +29,7 @@ public class AddRecipeForm extends HttpServlet {
         recipe.setPreparation(preparation);
         recipe.setIngredients(ingredients);
         recipeDao.create(recipe);
-        response.sendRedirect("/app/recipe/list");
+        response.sendRedirect("/app/recipe/list/");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

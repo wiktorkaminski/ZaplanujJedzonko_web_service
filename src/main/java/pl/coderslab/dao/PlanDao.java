@@ -22,7 +22,7 @@ public class PlanDao {
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?,  admin_id = ? WHERE id = ?;";
     private static final String COUNT_PLANS_BY_ADMIN_ID_QUERY = "SELECT COUNT(*) AS numOfPlans FROM plan WHERE admin_id = ?;";
     private static final String FIND_RECENT_PLAN_QUERY =
-            "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description\n" +
+            "SELECT day_name.name as day_name, meal_name,  recipe.name as recipe_name, recipe.description as recipe_description, recipe.id as recipe_id \n" +
                     "FROM `recipe_plan`\n" +
                     "JOIN day_name on day_name.id=day_name_id\n" +
                     "JOIN recipe on recipe.id=recipe_id WHERE\n" +
@@ -160,19 +160,20 @@ public class PlanDao {
         return plansCounter;
     }
 
-    public List<RecentPlanDetail> findRecentPlan(int adminId) {
-        List<RecentPlanDetail> planDetails = new LinkedList<>();
+    public List<PlanDetail> findRecentPlan(int adminId) {
+        List<PlanDetail> planDetails = new LinkedList<>();
         try (Connection conn = DbUtil.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(FIND_RECENT_PLAN_QUERY)
         ) {
             preparedStatement.setInt(1, adminId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                RecentPlanDetail tempPlanDetails = new RecentPlanDetail(
+                PlanDetail tempPlanDetails = new PlanDetail(
                         resultSet.getString("day_name"),            // setting value in constructor
                         resultSet.getString("meal_name"),           // setting value in constructor
                         resultSet.getString("recipe_name"),         // setting value in constructor
-                        resultSet.getString("recipe_description")   // setting value in constructor
+                        resultSet.getString("recipe_description"),  // setting value in constructor
+                        resultSet.getInt("recipe_id")               // setting value in constructor
                 );
                 planDetails.add(tempPlanDetails);
             }

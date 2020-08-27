@@ -4,6 +4,7 @@ import pl.coderslab.dao.AdminDao;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admin;
+import pl.coderslab.model.PlanDetail;
 import pl.coderslab.model.RecentPlanDetail;
 
 import javax.servlet.ServletException;
@@ -45,9 +46,9 @@ public class Dashboard extends HttpServlet {
         session.setAttribute("recentPlanName",  planDao.finRecentPlanName(adminId));
 
 //        passing which weekdays are in recent plan
-        List<RecentPlanDetail> recentPlan = planDao.findRecentPlan(adminId);
+        List<PlanDetail> recentPlan = planDao.findRecentPlan(adminId);
         Set<String> weekdaysInPlan = new LinkedHashSet<>();
-        for (RecentPlanDetail recentPlanDetail : recentPlan) {
+        for (PlanDetail recentPlanDetail : recentPlan) {
             weekdaysInPlan.add(recentPlanDetail.getDayName());
         }
         session.setAttribute("weekdaysInPlan", weekdaysInPlan);

@@ -30,7 +30,7 @@
             <div class="dashboard-header m-4">
                 <div class="dashboard-menu">
                     <div class="menu-item border-dashed">
-                        <a href="">
+                        <a href="/app/recipe/add">
                             <i class="far fa-plus-square icon-plus-square"></i>
                             <span class="title">dodaj przepis</span>
                         </a>
@@ -81,7 +81,7 @@
                                     <td class="col-2">${recentPlanDetail.mealName}</td>
                                     <td class="col-8">${recentPlanDetail.recipeName}</td>
                                     <td class="col-2">
-                                        <button type="button" class="btn btn-primary rounded-0">Szczegóły</button>
+                                        <a href="/app/recipe/details?id=${recentPlanDetail.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                     </td>
                                 </tr>
                             </c:if>
