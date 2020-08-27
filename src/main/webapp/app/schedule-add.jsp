@@ -46,7 +46,7 @@
                                 Nazwa planu
                             </label>
                             <div class="col-sm-10">
-                                <input class="form-control" id="planName" name="name" placeholder="Nazwa planu">
+                                <input class="form-control" id="planName" name="name" placeholder="Nazwa planu" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -55,7 +55,7 @@
                             </label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" rows="5" id="planDescription" name="description"
-                                          placeholder="Opis plany"></textarea>
+                                          placeholder="Opis planu" required></textarea>
                             </div>
                         </div>
 
