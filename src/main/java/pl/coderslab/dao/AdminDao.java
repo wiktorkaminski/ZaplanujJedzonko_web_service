@@ -16,7 +16,8 @@ public class AdminDao {
     private static final String CREATE_ADMIN_QUERY = "INSERT INTO admins(first_name, last_name, email, password, superadmin, enable) VALUES (?,?,?,?,?,?);";
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins where id = ?;";
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT * FROM admins;";
-    private static final String READ_ADMIN_QUERY = "SELECT * from admins where id = ?;";
+    private static final String READ_ADMIN_BY_ID_QUERY = "SELECT * from admins where id = ?;";
+    private static final String READ_ADMIN_BY_EMAIL_QUERY = "SELECT * from admins where email = ?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE	admins SET first_name = ?, last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE	id = ?;";
     public static final String CHECK_EMAIL_PASS = "SELECT * FROM admins WHERE email = ?";
     public String hashPassword(String password) {
@@ -47,7 +48,7 @@ public class AdminDao {
     public Admin read(Integer adminId) {
         Admin admin = new Admin();
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(READ_ADMIN_QUERY)) {
+             PreparedStatement statement = connection.prepareStatement(READ_ADMIN_BY_ID_QUERY)) {
             statement.setInt(1, adminId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -175,5 +176,23 @@ public class AdminDao {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public boolean checkIfEmailIsUnique(String email) {
+
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_ADMIN_BY_EMAIL_QUERY)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 }
