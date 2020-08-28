@@ -27,68 +27,71 @@
         <%@ include file="/WEB-INF/jspf/app-left-nav-list.jsp" %>
 
         <div class="m-4 p-4 width-medium">
-            <div class="dashboard-header m-4">
-                <div class="dashboard-menu">
-                    <div class="menu-item border-dashed">
-                        <a href="/app/recipe/add">
-                            <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">dodaj przepis</span>
-                        </a>
+            <div class="view-height">
+                <div class="dashboard-header m-4">
+                    <div class="dashboard-menu">
+                        <div class="menu-item border-dashed">
+                            <a href="/app/recipe/add">
+                                <i class="far fa-plus-square icon-plus-square"></i>
+                                <span class="title">dodaj przepis</span>
+                            </a>
+                        </div>
+                        <div class="menu-item border-dashed">
+                            <a href="/app/plan/add">
+                                <i class="far fa-plus-square icon-plus-square"></i>
+                                <span class="title">dodaj plan</span>
+                            </a>
+                        </div>
+                        <div class="menu-item border-dashed">
+                            <a href="/app/recipe/plan/add">
+                                <i class="far fa-plus-square icon-plus-square"></i>
+                                <span class="title">dodaj przepis do planu</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="menu-item border-dashed">
-                        <a href="/app/plan/add">
-                            <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">dodaj plan</span>
-                        </a>
-                    </div>
-                    <div class="menu-item border-dashed">
-                        <a href="/app/recipe/plan/add">
-                            <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">dodaj przepis do planu</span>
-                        </a>
+
+                    <div class="dashboard-alerts">
+                        <div class="alert-item alert-info">
+                            <i class="fas icon-circle fa-info-circle"></i>
+                            <span class="font-weight-bold">Liczba przepisów: ${recipeNumber}</span>
+                        </div>
+                        <div class="alert-item alert-light">
+                            <i class="far icon-calendar fa-calendar-alt"></i>
+                            <span class="font-weight-bold">Liczba planów: ${plansNumber}</span>
+                        </div>
                     </div>
                 </div>
+                <div class="m-4 p-4 border-dashed">
+                    <h2 class="dashboard-content-title">
+                        <span>Ostatnio dodany plan:</span> ${recentPlanName}
+                    </h2>
+                    <table class="table">
+                        <c:forEach items="${weekdaysInPlan}" var="weekday">
+                            <thead>
+                            <tr class="d-flex">
+                                <th class="col-2">${weekday}</th>
+                                <th class="col-8"></th>
+                                <th class="col-2"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${recentPlan}" var="recentPlanDetail">
 
-                <div class="dashboard-alerts">
-                    <div class="alert-item alert-info">
-                        <i class="fas icon-circle fa-info-circle"></i>
-                        <span class="font-weight-bold">Liczba przepisów: ${recipeNumber}</span>
-                    </div>
-                    <div class="alert-item alert-light">
-                        <i class="far icon-calendar fa-calendar-alt"></i>
-                        <span class="font-weight-bold">Liczba planów: ${plansNumber}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="m-4 p-4 border-dashed">
-                <h2 class="dashboard-content-title">
-                    <span>Ostatnio dodany plan:</span> ${recentPlanName}
-                </h2>
-                <table class="table">
-                    <c:forEach items="${weekdaysInPlan}" var="weekday">
-                        <thead>
-                        <tr class="d-flex">
-                            <th class="col-2">${weekday}</th>
-                            <th class="col-8"></th>
-                            <th class="col-2"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${recentPlan}" var="recentPlanDetail">
-
-                            <c:if test="${recentPlanDetail.dayName eq weekday}">
-                                <tr class="d-flex">
-                                    <td class="col-2">${recentPlanDetail.mealName}</td>
-                                    <td class="col-8">${recentPlanDetail.recipeName}</td>
-                                    <td class="col-2">
-                                        <a href="/app/recipe/details?id=${recentPlanDetail.recipeId}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                    </td>
-                                </tr>
-                            </c:if>
+                                <c:if test="${recentPlanDetail.dayName eq weekday}">
+                                    <tr class="d-flex">
+                                        <td class="col-2">${recentPlanDetail.mealName}</td>
+                                        <td class="col-8">${recentPlanDetail.recipeName}</td>
+                                        <td class="col-2">
+                                            <a href="/app/recipe/details?id=${recentPlanDetail.recipeId}"
+                                               class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                        </td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>
+                            </tbody>
                         </c:forEach>
-                        </tbody>
-                    </c:forEach>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
