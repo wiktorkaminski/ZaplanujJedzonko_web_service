@@ -28,75 +28,100 @@
 
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <div class="row border-bottom border-3 p-1 m-1">
-                    <div class="col noPadding">
-                        <h3 class="color-header text-uppercase">DODAJ PRZEPIS DO PLANU</h3>
-                    </div>
-                    <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <button type="submit" form="addRecipeToPlan"
-                                class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz
-                        </button>
-                    </div>
-                </div>
+                <c:choose>
+                    <c:when test="${plansByAdminId.size()==0}">
+                        <div class="row border-bottom border-3 p-1 m-1">
+                            <div class="col noPadding">
+                                <h3 class="color-header text-uppercase">NIE MASZ ŻADNYCH PLANÓW</h3>
+                            </div>
+                            <div class="col d-flex justify-content-end mb-2 noPadding">
+                                <a href="/app/dashboard" class="btn btn-info rounded-0 text-light m-1">OK</a>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:when test="${recipes.size()==0}">
+                        <div class="row border-bottom border-3 p-1 m-1">
+                            <div class="col noPadding">
+                                <h3 class="color-header text-uppercase">NIE MASZ ŻADNYCH PRZEPISÓW</h3>
+                            </div>
+                            <div class="col d-flex justify-content-end mb-2 noPadding">
+                                <a href="/app/dashboard" class="btn btn-info rounded-0 text-light m-1">OK</a>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="row border-bottom border-3 p-1 m-1">
+                            <div class="col noPadding">
+                                <h3 class="color-header text-uppercase">DODAJ PRZEPIS DO PLANU</h3>
+                            </div>
+                            <div class="col d-flex justify-content-end mb-2 noPadding">
+                                <button type="submit" form="addRecipeToPlan"
+                                        class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz
+                                </button>
+                            </div>
+                        </div>
 
-                <div class="schedules-content">
-                    <form action="/app/recipe/plan/add" method="post" id="addRecipeToPlan">
-                        <div class="form-group row">
-                            <label for="choosePlan" class="col-sm-2 label-size col-form-label">
-                                Wybierz plan
-                            </label>
-                            <div class="col-sm-3">
-                                <select name="planId" class="form-control" id="choosePlan">
-                                    <c:forEach items="${plansByAdminId}" var="plan">
-                                        <option value="${plan.id}">${plan.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                        <div class="schedules-content">
+                            <form action="/app/recipe/plan/add" method="post" id="addRecipeToPlan">
+                                <div class="form-group row">
+                                    <label for="choosePlan" class="col-sm-2 label-size col-form-label">
+                                        Wybierz plan
+                                    </label>
+                                    <div class="col-sm-3">
+                                        <select name="planId" class="form-control" id="choosePlan">
+                                            <c:forEach items="${plansByAdminId}" var="plan">
+                                                <option value="${plan.id}">${plan.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-2 label-size col-form-label">
+                                        Nazwa posiłku
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input name="mealName" type="text" class="form-control" value="" id="name"
+                                               placeholder="Nazwa posiłku" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="number" class="col-sm-2 label-size col-form-label">
+                                        Numer posiłku
+                                    </label>
+                                    <div class="col-sm-2">
+                                        <input name="displayOrder" type="number" min="1" max="5" class="form-control"
+                                               value="1"
+                                               id="number">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="recipe" class="col-sm-2 label-size col-form-label">
+                                        Przepis
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <select name="recipeId" class="form-control" id="recipe">
+                                            <c:forEach items="${recipes}" var="recipe">
+                                                <option value="${recipe.id}">${recipe.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="day" class="col-sm-2 label-size col-form-label">
+                                        Dzień
+                                    </label>
+                                    <div class="col-sm-2">
+                                        <select name="dayNameId" class="form-control" id="day">
+                                            <c:forEach items="${dayNames}" var="day">
+                                                <option value="${day.id}">${day.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-2 label-size col-form-label">
-                                Nazwa posiłku
-                            </label>
-                            <div class="col-sm-10">
-                                <input name="mealName" type="text" class="form-control" value="" id="name"
-                                       placeholder="Nazwa posiłku" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="number" class="col-sm-2 label-size col-form-label">
-                                Numer posiłku
-                            </label>
-                            <div class="col-sm-2">
-                                <input name="displayOrder" type="number" min="1" max="5" class="form-control" value="1"
-                                       id="number">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="recipe" class="col-sm-2 label-size col-form-label">
-                                Przepis
-                            </label>
-                            <div class="col-sm-4">
-                                <select name="recipeId" class="form-control" id="recipe">
-                                    <c:forEach items="${recipes}" var="recipe">
-                                        <option value="${recipe.id}">${recipe.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="day" class="col-sm-2 label-size col-form-label">
-                                Dzień
-                            </label>
-                            <div class="col-sm-2">
-                                <select name="dayNameId" class="form-control" id="day">
-                                    <c:forEach items="${dayNames}" var="day">
-                                        <option value="${day.id}">${day.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
