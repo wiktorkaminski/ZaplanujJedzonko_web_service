@@ -27,7 +27,7 @@ html {
 body {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
-    background: repeat url("./images/image.png");
+    background: repeat url("../images/image.png");
 }
 
 p {

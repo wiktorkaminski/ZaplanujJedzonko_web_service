@@ -30,23 +30,26 @@
         <%@ include file="/WEB-INF/jspf/app-left-nav-list.jsp" %>
 
         <div class="m-4 p-3 width-medium ">
-            <div class="dashboard-content border-dashed p-3 m-4">
-                <div class="schedules-content">
-                    <table class="table">
-                        <tbody class="text-color-lighter">
-                        <tr>
-                            <td>
-                                <h3 class="color-header text-uppercase">POTWIERDŹ USUNIĘCIE PRZEPISU</h3>
-                            </td>
-                            <td class="col-1 center">
-                                <a href="/app/plan/recipe-del?recipeId=${param.recipeId}&planId=${param.planId}&dayNameId=${dayNameId}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                            </td>
-                            <td class="col-2 center">
-                                <a href="/app/plan/list" class="btn btn-info rounded-0 text-light m-1">Anuluj</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <div class="view-height">
+                <div class="dashboard-content border-dashed p-3 m-4">
+                    <div class="schedules-content">
+                        <table class="table">
+                            <tbody class="text-color-lighter">
+                            <tr>
+                                <td class="col-7">
+                                    <h3 class="color-header text-uppercase">POTWIERDŹ USUNIĘCIE PRZEPISU</h3>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/plan/recipe-del?recipeId=${param.recipeId}&planId=${param.planId}&dayNameId=${dayNameId}"
+                                       class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/plan/list" class="btn btn-info rounded-0 text-light m-1">Anuluj</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
