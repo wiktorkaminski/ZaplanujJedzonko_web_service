@@ -17,6 +17,7 @@ import java.util.List;
 public class PlanDao {
     private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name, description,created, admin_id) VALUES (?,?,NOW(),?);";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan WHERE id = ?;";
+    private static final String DELETE_ALL_RECIPES_IN_PLAN_QUERY = "DELETE FROM recipe_plan WHERE plan_id = ?;";
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id = ?;";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?,  admin_id = ? WHERE id = ?;";
@@ -139,6 +140,16 @@ public class PlanDao {
             if (!deleted) {
                 throw new NotFoundException("Plan not found");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAllRecipesInPlan(Integer planId) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_ALL_RECIPES_IN_PLAN_QUERY)) {
+            statement.setInt(1, planId);
+            statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

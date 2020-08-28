@@ -20,7 +20,12 @@ public class ScheduleDeleteConfirm extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         int idToDelete = (Integer)session.getAttribute("idToDelete");
+
         PlanDao planDao = new PlanDao();
+//        --- deleting all recipes in plan ---
+        planDao.deleteAllRecipesInPlan(idToDelete);
+
+//        --- deleting plan --
         planDao.delete(idToDelete);
         response.sendRedirect("/app/plan/list");
     }
